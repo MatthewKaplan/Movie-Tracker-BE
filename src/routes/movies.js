@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const router = new express.Router();
 
 router.post('/movies', auth, async (req, res) => {
-	const movie = new Movie({ ...req.body, userList: req.user._id });
+	const movie = await new Movie({ ...req.body, userList: req.user._id });
 	try {
 		await movie.save();
 		res.status(201).send(movie);
@@ -34,10 +34,19 @@ router.get('/movies/:id', auth, async (req, res) => {
 	}
 });
 
+router.get('/movies/favorites/:id', auth, async (req, res) => {
+	try {
+		const favorites = await Movie.find({ userList: req.params.id });
+		res.send(favorites);
+	} catch (e) {
+		res.status(500).send();
+	}
+});
+
 router.delete('/movies/:id', auth, async (req, res) => {
 	try {
 		const movie = await Movie.findOneAndDelete({ _id: req.params.id, userList: req.user._id });
-    // const movie = await Movie.findByIdAndDelete(req.params.id)
+		// const movie = await Movie.findByIdAndDelete(req.params.id)
 		if (!movie) {
 			return res.status(404).send({ error: 'No movie found with that id' });
 		}
