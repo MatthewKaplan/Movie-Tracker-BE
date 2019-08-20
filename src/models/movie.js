@@ -6,11 +6,6 @@ const movieSchema = new mongoose.Schema({
 		trim: true,
 		required: true
 	},
-	user_id: {
-		type: Number,
-		trim: true,
-		required: true
-	},
 	title: {
 		type: String,
 		trim: true,
@@ -35,6 +30,8 @@ const movieSchema = new mongoose.Schema({
     trim: true,
     required: true
   }
+}, {
+  timestamps: true
 });
 
 const Movie = mongoose.model('Movie', movieSchema)
