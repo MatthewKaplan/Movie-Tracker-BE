@@ -22,4 +22,16 @@ router.get('/users', async (req, res) => {
 	}
 });
 
+router.get('/users/:id', async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id);
+		if (!user) {
+			return res.status(404).send({ error: 'User could not be found' });
+		}
+		res.send(user);
+	} catch (e) {
+		res.status(500).send(e);
+	}
+});
+
 module.exports = router;
