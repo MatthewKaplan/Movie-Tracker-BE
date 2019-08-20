@@ -48,10 +48,10 @@ const userSchema = new mongoose.Schema(
 	}
 );
 
-userSchema.virtual('tasks', {
-	ref: 'Task',
+userSchema.virtual('movies', {
+	ref: 'Movie',
 	localField: '_id',
-	foreignField: 'owner'
+	foreignField: 'userList'
 });
 
 userSchema.methods.toJSON = function (){
