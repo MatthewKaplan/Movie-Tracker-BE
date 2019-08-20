@@ -1,7 +1,7 @@
 const express = require('express');
-const Movie = require('../models/movie');
 const auth = require('../middleware/auth');
 const router = new express.Router();
+const Movie = require('../models/movie');
 
 router.post('/movies', auth, async (req, res) => {
 	const movie = await new Movie({ ...req.body, userList: req.user._id });
