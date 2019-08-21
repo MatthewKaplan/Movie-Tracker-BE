@@ -11,7 +11,7 @@ const store = new mongoDBStore({
 });
 
 app.use(session({ secret: 'asdfghjkl', resave: false, saveUninitialized: false, store: store }));
-
+require('./db/mongoose');
 const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
 
